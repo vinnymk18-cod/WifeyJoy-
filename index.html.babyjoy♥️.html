@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I love you my love 💕</title>
+    <style>
+        :root {
+            --crystal-pink: #ffb7c5;
+            --crystal-light: #ffe4e1;
+            --crystal-deep: #ff69b4;
+            --text-color: #4a4a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--crystal-light);
+            /* Soft, elegant floral background pattern mixed with crystal pink */
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.8) 20%, transparent 20%),
+                radial-gradient(rgba(255, 183, 197, 0.4) 40%, transparent 40%);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+        }
+
+        /* Container Card - Light, highly visible tab style */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid var(--crystal-pink);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Message Styling */
+        .message {
+            font-size: 1.35rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Button Container */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Buttons Styling - Highly visible and crisp */
+        .btn {
+            background: linear-gradient(135deg, var(--crystal-pink), var(--crystal-deep));
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+            width: 80%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 105, 180, 0.5);
+        }
+
+        .btn-back {
+            background: white;
+            color: var(--crystal-deep);
+            border: 2px solid var(--crystal-pink);
+            box-shadow: none;
+        }
+
+        .btn-back:hover {
+            background: var(--crystal-light);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* View toggling */
+        .page {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Falling Hearts Animation */
+        .heart {
+            position: absolute;
+            top: -10%;
+            color: var(--crystal-deep);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                top: 110%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <div class="card">
+        
+        <div id="page1" class="page active">
+            <div class="message">
+                Hi mamangu🤗,imagine nimekaa hivi nkakumbuka that I have an amazing gift from God and that's you😊I love you
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="navigateTo('page2')">Next</button>
+            </div>
+        </div>
+
+        <div id="page2" class="page">
+            <div class="message">
+                I pray to God that we last long mpaka tufike kwa ndoa na tupate watoto wengi♥️♥️
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="navigateTo('page1')">I love you💕</button>
+                <button class="btn btn-back" onclick="navigateTo('page1')">← Back</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Page Navigation Logic
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show the target page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Animated Dropping Hearts Generator
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            if (!container) return;
+
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Randomize heart icons
+            const heartTypes = ['💕', '♥️', '🌸', '💖', '💗'];
+            heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            // Randomize positioning and animation speed
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's'; // Between 3 and 6 seconds
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px'; // Between 15px and 30px
+            
+            container.appendChild(heart);
+
+            // Remove heart after animation finishes to keep memory clean
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Generate hearts continuously
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
